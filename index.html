@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Love You My Wife</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for Elegant Serif Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Base typography */
+        .font-cinzel {
+            font-family: 'Cinzel', serif;
+        }
+        .font-playfair {
+            font-family: 'Playfair Display', serif;
+        }
+        .font-sans-custom {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        /* Full page mountain landscape background */
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #0B101D;
+            user-select: none;
+        }
+
+        .bg-mountain {
+            background-image: linear-gradient(to bottom, rgba(11, 16, 29, 0.4), rgba(11, 16, 29, 0.75)), 
+                              url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Glassmorphism Card Style */
+        .glass-card {
+            background: rgba(15, 23, 42, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.05);
+        }
+
+        /* Golden/Warm Glow Text Effect matching screenshot */
+        .glow-text {
+            color: #FFFFFF;
+            text-shadow: 
+                0 0 8px rgba(255, 230, 180, 0.9),
+                0 0 18px rgba(255, 215, 0, 0.7),
+                0 0 30px rgba(255, 180, 0, 0.5),
+                0 0 45px rgba(255, 140, 0, 0.3);
+        }
+
+        /* Subtitle glowing effect */
+        .subglow-text {
+            color: #F8FAFC;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 192, 203, 0.4);
+        }
+
+        /* Canvas positions */
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        /* Pulse / Heartbeat animation */
+        @keyframes heartbeat {
+            0% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.8)); }
+            14% { transform: scale(1.22); filter: drop-shadow(0 0 20px rgba(239, 68, 68, 1)); }
+            28% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.8)); }
+            42% { transform: scale(1.18); filter: drop-shadow(0 0 18px rgba(239, 68, 68, 0.9)); }
+            70% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.8)); }
+            100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.8)); }
+        }
+
+        .pulse-heart {
+            animation: heartbeat 1.6s infinite ease-in-out;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body class="bg-mountain h-screen w-screen flex items-center justify-center relative font-sans-custom">
+
+    <!-- Canvas for Rain effect matching reference image -->
+    <canvas id="rainCanvas" class="z-10"></canvas>
+
+    <!-- Canvas for Floating Hearts & Sparkles -->
+    <canvas id="heartsCanvas" class="z-20"></canvas>
+
+    <!-- Main Container Card -->
+    <main class="z-30 w-11/12 max-w-4xl px-4 py-8 md:px-12 md:py-14 text-center glass-card rounded-2xl md:rounded-3xl border border-white/20 transition-all duration-500 hover:border-white/30">
+        
+        <!-- Animated Beating Heart Icon Header -->
+        <div class="mb-4 md:mb-6">
+            <svg class="pulse-heart w-16 h-16 md:w-24 md:h-24 mx-auto text-red-500 fill-current" viewBox="0 0 24 24">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+        </div>
+
+        <!-- Main Heading: I LOVE YOU MY WIFE -->
+        <h1 class="glow-text font-cinzel text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-wider leading-tight uppercase mb-4 md:mb-6">
+            I LOVE YOU MY WIFE
+        </h1>
+
+        <!-- Romantic Subtitle Text -->
+        <p class="subglow-text font-playfair italic text-lg sm:text-2xl md:text-3xl text-slate-100 font-medium leading-relaxed max-w-2xl mx-auto mb-6 md:mb-8">
+            "You are my today and all of my tomorrows. Wishing you a lifetime of endless joy, love, and sweet memories together."
+        </p>
+
+        <!-- Cute Interactive Button -->
+        <div class="mt-2">
+            <button id="loveBtn" onclick="burstHearts(event)" class="px-6 py-2.5 md:px-8 md:py-3 bg-red-600/80 hover:bg-red-500 text-white font-medium text-sm md:text-base rounded-full shadow-lg shadow-red-900/40 hover:shadow-red-600/60 transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 backdrop-blur-md border border-red-400/40 cursor-pointer">
+                ❤️ Send Love
+            </button>
+        </div>
+
+    </main>
+
+    <!-- Audio / Visual Scripting -->
+    <script>
+        // --- 1. Rain Animation System (Matching Screen Rain Drops) ---
+        const rainCanvas = document.getElementById('rainCanvas');
+        const rainCtx = rainCanvas.getContext('2d');
+
+        let width = rainCanvas.width = window.innerWidth;
+        let height = rainCanvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = rainCanvas.width = window.innerWidth;
+            height = rainCanvas.height = window.innerHeight;
+            heartsCanvas.width = window.innerWidth;
+            heartsCanvas.height = window.innerHeight;
+        });
+
+        const numDrops = 180;
+        const drops = [];
+
+        for (let i = 0; i < numDrops; i++) {
+            drops.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                length: Math.random() * 18 + 10,
+                speed: Math.random() * 8 + 12,
+                opacity: Math.random() * 0.4 + 0.2
+            });
+        }
+
+        function drawRain() {
+            rainCtx.clearRect(0, 0, width, height);
+            
+            for (let i = 0; i < drops.length; i++) {
+                const d = drops[i];
+                rainCtx.beginPath();
+                rainCtx.strokeStyle = `rgba(255, 255, 255, ${d.opacity})`;
+                rainCtx.lineWidth = 1.2;
+                rainCtx.moveTo(d.x, d.y);
+                rainCtx.lineTo(d.x, d.y + d.length);
+                rainCtx.stroke();
+
+                d.y += d.speed;
+                if (d.y > height) {
+                    d.y = -d.length;
+                    d.x = Math.random() * width;
+                }
+            }
+        }
+
+        // --- 2. Floating Hearts & Particles Animation System ---
+        const heartsCanvas = document.getElementById('heartsCanvas');
+        const heartsCtx = heartsCanvas.getContext('2d');
+        heartsCanvas.width = width;
+        heartsCanvas.height = height;
+
+        const floatingHearts = [];
+
+        class FloatingHeart {
+            constructor(x, y, isBurst = false) {
+                this.x = x !== undefined ? x : Math.random() * width;
+                this.y = y !== undefined ? y : height + Math.random() * 20;
+                this.size = Math.random() * 16 + 10;
+                this.speedY = isBurst ? (Math.random() - 0.5) * 6 : -(Math.random() * 1.5 + 0.8);
+                this.speedX = isBurst ? (Math.random() - 0.5) * 6 : Math.sin(Math.random() * Math.PI) * 1.2;
+                this.opacity = isBurst ? 1 : Math.random() * 0.7 + 0.3;
+                this.fadeRate = isBurst ? 0.015 : 0.002;
+                this.rotation = Math.random() * Math.PI;
+                this.rotSpeed = (Math.random() - 0.5) * 0.03;
+                this.color = `hsl(${Math.random() * 20 + 340}, 90%, 65%)`;
+            }
+
+            draw() {
+                heartsCtx.save();
+                heartsCtx.translate(this.x, this.y);
+                heartsCtx.rotate(this.rotation);
+                heartsCtx.fillStyle = this.color;
+                heartsCtx.globalAlpha = this.opacity;
+                
+                // Draw SVG-like heart path
+                const s = this.size / 15;
+                heartsCtx.beginPath();
+                heartsCtx.moveTo(0, -5 * s);
+                heartsCtx.bezierCurveTo(-5 * s, -12 * s, -15 * s, -2 * s, 0, 10 * s);
+                heartsCtx.bezierCurveTo(15 * s, -2 * s, 5 * s, -12 * s, 0, -5 * s);
+                heartsCtx.fill();
+                heartsCtx.restore();
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.rotation += this.rotSpeed;
+                this.opacity -= this.fadeRate;
+            }
+        }
+
+        // Add periodic floating hearts
+        setInterval(() => {
+            if (floatingHearts.length < 35) {
+                floatingHearts.push(new FloatingHeart());
+            }
+        }, 400);
+
+        function drawHearts() {
+            heartsCtx.clearRect(0, 0, width, height);
+            
+            for (let i = floatingHearts.length - 1; i >= 0; i--) {
+                const heart = floatingHearts[i];
+                heart.update();
+                heart.draw();
+
+                if (heart.opacity <= 0 || heart.y < -30) {
+                    floatingHearts.splice(i, 1);
+                }
+            }
+        }
+
+        // Interactive Heart Explosion when clicking the button
+        function burstHearts(e) {
+            const rect = e.target.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+
+            for (let i = 0; i < 30; i++) {
+                floatingHearts.push(new FloatingHeart(centerX, centerY, true));
+            }
+        }
+
+        // Main Animation Loop
+        function animate() {
+            drawRain();
+            drawHearts();
+            requestAnimationFrame(animate);
+        }
+
+        window.onload = function() {
+            animate();
+        };
+    </script>
+</body>
+</html>
